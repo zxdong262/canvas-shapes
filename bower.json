@@ -1,0 +1,34 @@
+{
+  "name": "canvas-shapes",
+  "version": "0.0.5",
+  "homepage": "http://html5beta.com/apps/canvas-shapes.html",
+  "author": {
+    "email": "zxdong@gmail.com",
+    "name": "ZHAO Xudong",
+    "url": "http://html5beta.com"
+  },
+  "description": "this jquery plugin will draw simple shape moving animation in canvas",
+  "bugs": "https://github.com/zxdong262/canvas-shapes/issues",
+  "main": "dist/canvas-shapes.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "canvas",
+    "shape",
+    "jquery",
+    "jquery-plugin",
+    "ecosystem:jquery"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.1.1"
+  }
+}
