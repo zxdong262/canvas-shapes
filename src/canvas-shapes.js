@@ -146,6 +146,41 @@ Shapes.prototype.buildShape = function(type) {
 
 }
 
+Shapes.prototype.popShape = function(count) {
+	var len = this.shapes.length
+	,_count = len < count?len:count
+	_count = len - _count
+	this.shapes = this.shapes.slice(0, _count)
+	this.opts.shapeCount = this.opts.shapeCount - count
+}
+
+Shapes.prototype.pushShape = function(obj, typesPool) {
+	var th = this
+	,methodsPool = typesPool || th.methodsPool
+	,len = methodsPool.length
+	,r = Math.floor(Math.random() * len)
+
+
+	th.shapes.push(
+		$.extend(
+			th.buildShape(methodsPool[r])
+			,obj
+		)
+	)
+
+	this.opts.shapeCount ++
+}
+
+Shapes.prototype.stop = function() {
+	clearTimeout(this.timerHandle)
+	this.clearShapes()
+}
+
+Shapes.prototype.clearShapes = function() {
+	this.ctx.clearRect(0, 0, this.width, this.height)
+}
+
+//bubble
 Shapes.prototype.build_shape_bubble = function() {
 	var th = this
 	,opts = th.opts
@@ -174,13 +209,68 @@ Shapes.prototype.build_shape_bubble = function() {
 		,directionX: directionX
 		,directionY: directionY
 		,type: 'bubble'
-		,fillStyle: colorPool[cr]
+		,strokeStyle: colorPool[cr]
+	}
+
+	return obj
+
+}
+Shapes.prototype.draw_bubble = function(pos) {
+	var ctx = this.ctx
+	ctx.beginPath()
+	ctx.fillStyle = pos.fillStyle
+	ctx.arc(pos.x, pos.y, pos.r, 0, Math.PI * 2, true)
+	ctx.fill()
+	ctx.closePath()
+}
+
+//light
+Shapes.prototype.draw_light = function(pos) {
+	var ctx = this.ctx
+	ctx.beginPath()
+	ctx.moveTo(10, 10)
+	ctx.lineTo(pos.x, pos.y)
+	ctx.strokeStyle = pos.strokeStyle
+	ctx.stroke()
+	ctx.closePath()
+}
+Shapes.prototype.build_shape_light = function() {
+
+	var th = this
+	,opts = th.opts
+	,size = Math.floor(Math.random() * (opts.maxSize - opts.minSize)) + opts.minSize
+	,s2 = size * 2
+	,xx = th.width > s2 ? th.width : s2 + 1
+	,yy = th.height > s2 ? th.height : s2 + 1
+	,x = size + Math.floor(Math.random() * (xx - s2))
+	,y = size + Math.floor(Math.random() * (yy - s2))
+	,directionX = (Math.floor(Math.random() * 7) - 3) / 3
+	,directionY = (Math.floor(Math.random() * 7) - 3) / 3
+	,colorPool = [
+		'rgba(156,183,52,.25)'
+		,'rgba(227,163,26,.25)'
+		,'rgba(217,84,56,.25)'
+		,'rgba(4,80,150,.25)'
+		,'rgba(122,24,105,.25)'
+	]
+	,clen = colorPool.length
+	,cr = Math.floor(Math.random() * clen)
+
+	var obj = {
+		x: x
+		,y: y
+		,r: size
+		,directionX: directionX
+		,directionY: directionY
+		,type: 'light'
+		,strokeStyle: colorPool[cr]
 	}
 
 	return obj
 
 }
 
+//heart from https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
 Shapes.prototype.build_shape_heart = function() {
 	var th = this
 	,opts = th.opts
@@ -206,7 +296,30 @@ Shapes.prototype.build_shape_heart = function() {
 	return obj
 
 }
+Shapes.prototype.draw_heart = function(pos) {
+	
+	var th = this
+	,ctx = th.ctx
+	,ratio = pos.r / 75
+	,x = pos.x
+	,y = pos.y
+	,bx = x - pos.r
+	,by = y - pos.r
 
+	ctx.beginPath()
+	ctx.fillStyle = pos.fillStyle
+	ctx.moveTo(bx + 75 * ratio, by + 40 * ratio)
+	ctx.bezierCurveTo(bx + 75 * ratio, by + 37 * ratio, bx + 70 * ratio, by + 25 * ratio, bx + 50 * ratio, by + 25 * ratio)
+	ctx.bezierCurveTo(bx + 20 * ratio, by + 25 * ratio, bx + 20 * ratio, by + 62.5 * ratio, bx + 20 * ratio, by + 62.5 * ratio)
+	ctx.bezierCurveTo(bx + 20 * ratio, by + 80 * ratio, bx + 40 * ratio, by + 102 * ratio, bx + 75 * ratio, by + 120 * ratio)
+	ctx.bezierCurveTo(bx + 110 * ratio, by + 102 * ratio, bx + 130 * ratio, by + 80 * ratio, bx + 130 * ratio, by + 62.5 * ratio)
+	ctx.bezierCurveTo(bx + 130 * ratio, by + 62.5 * ratio, bx + 130 * ratio, by + 25 * ratio, bx + 100 * ratio, by + 25 * ratio)
+	ctx.bezierCurveTo(bx + 85 * ratio, by + 25 * ratio, bx + 75 * ratio, by + 37 * ratio, bx + 75 * ratio, by + 40 * ratio)
+	ctx.fill()
+	ctx.closePath()
+}
+
+//star from http://stackoverflow.com/questions/25837158/how-to-draw-a-star-by-using-canvas-html5
 Shapes.prototype.build_shape_star = function() {
 	var th = this
 	,opts = th.opts
@@ -248,73 +361,6 @@ Shapes.prototype.build_shape_star = function() {
 	return obj
 
 }
-
-Shapes.prototype.popShape = function(count) {
-	var len = this.shapes.length
-	,_count = len < count?len:count
-	_count = len - _count
-	this.shapes = this.shapes.slice(0, _count)
-	this.opts.shapeCount = this.opts.shapeCount - count
-}
-
-Shapes.prototype.pushShape = function(obj, typesPool) {
-	var th = this
-	,methodsPool = typesPool || th.methodsPool
-	,len = methodsPool.length
-	,r = Math.floor(Math.random() * len)
-
-
-	th.shapes.push(
-		$.extend(
-			th.buildShape(methodsPool[r])
-			,obj
-		)
-	)
-
-	this.opts.shapeCount ++
-}
-
-Shapes.prototype.stop = function() {
-	clearTimeout(this.timerHandle)
-	this.clearShapes()
-}
-
-Shapes.prototype.clearShapes = function() {
-	this.ctx.clearRect(0, 0, this.width, this.height)
-}
-
-Shapes.prototype.draw_bubble = function(pos) {
-	var ctx = this.ctx
-	ctx.beginPath()
-	ctx.fillStyle = pos.fillStyle
-	ctx.arc(pos.x, pos.y, pos.r, 0, Math.PI * 2, true)
-	ctx.fill()
-	ctx.closePath()
-}
-
-Shapes.prototype.draw_heart = function(pos) {
-	
-	var th = this
-	,ctx = th.ctx
-	,ratio = pos.r / 75
-	,x = pos.x
-	,y = pos.y
-	,bx = x - pos.r
-	,by = y - pos.r
-
-	ctx.beginPath()
-	ctx.fillStyle = pos.fillStyle
-	ctx.moveTo(bx + 75 * ratio, by + 40 * ratio)
-	ctx.bezierCurveTo(bx + 75 * ratio, by + 37 * ratio, bx + 70 * ratio, by + 25 * ratio, bx + 50 * ratio, by + 25 * ratio)
-	ctx.bezierCurveTo(bx + 20 * ratio, by + 25 * ratio, bx + 20 * ratio, by + 62.5 * ratio, bx + 20 * ratio, by + 62.5 * ratio)
-	ctx.bezierCurveTo(bx + 20 * ratio, by + 80 * ratio, bx + 40 * ratio, by + 102 * ratio, bx + 75 * ratio, by + 120 * ratio)
-	ctx.bezierCurveTo(bx + 110 * ratio, by + 102 * ratio, bx + 130 * ratio, by + 80 * ratio, bx + 130 * ratio, by + 62.5 * ratio)
-	ctx.bezierCurveTo(bx + 130 * ratio, by + 62.5 * ratio, bx + 130 * ratio, by + 25 * ratio, bx + 100 * ratio, by + 25 * ratio)
-	ctx.bezierCurveTo(bx + 85 * ratio, by + 25 * ratio, bx + 75 * ratio, by + 37 * ratio, bx + 75 * ratio, by + 40 * ratio)
-	ctx.fill()
-	ctx.closePath()
-}
-
 Shapes.prototype.draw_star = function(pos) {
 	var rot = Math.PI/2*3
 	,cx = pos.x

@@ -37,7 +37,7 @@ $(function() {
 
   //what shape you want draw, inside there are 'star', 'bubble', 'heart'
   //default methodsPool = ['star']
-  shapesInst.methodsPool= ['star', 'bubble', 'heart']
+  shapesInst.methodsPool= ['star', 'bubble', 'heart', 'light']
 
   //start animation
   shapesInst.start()
@@ -71,6 +71,8 @@ gulp test
 ```
 
 ## changelog
+
+- 1.0.1 add light shape
 
 - 1.0.0 fix push/pop function, count change relatively
 

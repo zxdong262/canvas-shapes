@@ -1,7 +1,7 @@
 {
   "name": "canvas-shapes",
   "description": "this jquery plugin will draw simple shape moving animation in canvas",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "canvas",
     "shape",

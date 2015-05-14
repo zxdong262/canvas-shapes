@@ -87,6 +87,16 @@ describe('canvas-shapes', function () {
 			expect(inst.shapes[0].type).to.equal('bubble')
 		})
 
+		it('light', function() {
+			var elm = compileDirective('default')
+			,id = elm.prop('id')
+			,inst = new Shapes('#' + id, {})
+			inst.methodsPool = ['light']
+			inst.start()
+			expect(inst.shapes.length).to.equal(20)
+			expect(inst.shapes[0].type).to.equal('light')
+		})
+
 	})
 
 	
