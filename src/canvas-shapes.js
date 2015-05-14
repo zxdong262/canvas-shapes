@@ -254,6 +254,7 @@ Shapes.prototype.popShape = function(count) {
 	,_count = len < count?len:count
 	_count = len - _count
 	this.shapes = this.shapes.slice(0, _count)
+	this.opts.shapeCount = this.opts.shapeCount - count
 }
 
 Shapes.prototype.pushShape = function(obj, typesPool) {
@@ -269,6 +270,8 @@ Shapes.prototype.pushShape = function(obj, typesPool) {
 			,obj
 		)
 	)
+
+	this.opts.shapeCount ++
 }
 
 Shapes.prototype.stop = function() {

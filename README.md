@@ -1,6 +1,8 @@
 # canvas-shapes
 this jquery plugin will draw simple shape moving animation in canvas.
 
+only support >=ie9
+
 ## demo & doc
 
 <a href="http://html5beta.com/apps/canvas-shapes.html">http://html5beta.com/apps/canvas-shapes.html</a>
@@ -14,6 +16,7 @@ bower install canvas-shapes
 
 ### reference it in html
 ```html
+<script src="jquery.min.js"></script>
 <script src="canvas-shapes.min.js">
 ```
 
@@ -53,6 +56,7 @@ $(function() {
   }
 
   //visit src/canvas-shapes.js for example
+  //visit test/test.js for more example
 
 })
 ```
@@ -65,6 +69,11 @@ npm install
 bower install
 gulp test
 ```
+
+## changelog
+
+- 1.0.0 fix push/pop function, count change relatively
+
 
 ## LICENCE
 
