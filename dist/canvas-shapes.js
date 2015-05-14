@@ -1,6 +1,6 @@
 /**
  * canvas-shapes
- * @version v1.0.1 - 2015-05-14
+ * @version v1.0.2 - 2015-05-14
  * @link http://html5beta.com/apps/canvas-shapes.html
  * @author ZHAO Xudong (zxdong@gmail.com)
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -217,7 +217,7 @@ Shapes.prototype.build_shape_bubble = function() {
 		,directionX: directionX
 		,directionY: directionY
 		,type: 'bubble'
-		,strokeStyle: colorPool[cr]
+		,fillStyle: colorPool[cr]
 	}
 
 	return obj

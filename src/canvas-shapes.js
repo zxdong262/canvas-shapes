@@ -209,7 +209,7 @@ Shapes.prototype.build_shape_bubble = function() {
 		,directionX: directionX
 		,directionY: directionY
 		,type: 'bubble'
-		,strokeStyle: colorPool[cr]
+		,fillStyle: colorPool[cr]
 	}
 
 	return obj
