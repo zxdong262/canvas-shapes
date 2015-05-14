@@ -1,6 +1,6 @@
 /**
  * canvas-shapes
- * @version v1.0.2 - 2015-05-14
+ * @version v1.0.3 - 2015-05-14
  * @link http://html5beta.com/apps/canvas-shapes.html
  * @author ZHAO Xudong (zxdong@gmail.com)
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -232,11 +232,64 @@ Shapes.prototype.draw_bubble = function(pos) {
 	ctx.closePath()
 }
 
+//balloon
+Shapes.prototype.draw_balloon = function(pos) {
+  var ctx = this.ctx
+  ctx.beginPath()
+  ctx.fillStyle = pos.fillStyle
+  ctx.arc(pos.x, pos.y, pos.r, 0, Math.PI * 2, true)
+  ctx.fill()
+  ctx.closePath()
+
+  ctx.beginPath()
+  ctx.moveTo(this.width/2, this.height - 20)
+  ctx.lineTo(pos.x, pos.y)
+  ctx.strokeStyle = pos.strokeStyle
+  ctx.stroke()
+  ctx.closePath()
+}
+Shapes.prototype.build_shape_balloon = function() {
+
+  var th = this
+  ,opts = th.opts
+  ,size = Math.floor(Math.random() * (opts.maxSize - opts.minSize)) + opts.minSize
+  ,s2 = size * 2
+  ,xx = th.width > s2 ? th.width : s2 + 1
+  ,yy = th.height > s2 ? th.height : s2 + 1
+  ,x = size + Math.floor(Math.random() * (xx - s2))
+  ,y = size + Math.floor(Math.random() * (yy - s2))
+  ,directionX = (Math.floor(Math.random() * 7) - 3) / 3
+  ,directionY = (Math.floor(Math.random() * 7) - 3) / 3
+  ,colorPool = [
+    'rgba(156,183,52,.25)'
+    ,'rgba(227,163,26,.25)'
+    ,'rgba(217,84,56,.25)'
+    ,'rgba(4,80,150,.25)'
+    ,'rgba(122,24,105,.25)'
+  ]
+  ,clen = colorPool.length
+  ,cr = Math.floor(Math.random() * clen)
+
+  var obj = {
+    x: x
+    ,y: y
+    ,r: size
+    ,directionX: directionX
+    ,directionY: directionY
+    ,type: 'balloon'
+    ,strokeStyle: colorPool[cr]
+    ,fillStyle: colorPool[cr]
+  }
+
+  return obj
+
+}
+
 //light
 Shapes.prototype.draw_light = function(pos) {
 	var ctx = this.ctx
 	ctx.beginPath()
-	ctx.moveTo(10, 10)
+	ctx.moveTo(20, 20)
 	ctx.lineTo(pos.x, pos.y)
 	ctx.strokeStyle = pos.strokeStyle
 	ctx.stroke()

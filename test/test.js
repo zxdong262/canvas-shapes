@@ -97,6 +97,16 @@ describe('canvas-shapes', function () {
 			expect(inst.shapes[0].type).to.equal('light')
 		})
 
+		it('balloon', function() {
+			var elm = compileDirective('default')
+			,id = elm.prop('id')
+			,inst = new Shapes('#' + id, {})
+			inst.methodsPool = ['balloon']
+			inst.start()
+			expect(inst.shapes.length).to.equal(20)
+			expect(inst.shapes[0].type).to.equal('balloon')
+		})
+
 	})
 
 	
