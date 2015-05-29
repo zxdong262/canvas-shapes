@@ -1,6 +1,6 @@
 /**
  * canvas-shapes
- * @version v1.0.3 - 2015-05-14
+ * @version v1.0.3 - 2015-05-29
  * @link http://html5beta.com/apps/canvas-shapes.html
  * @author ZHAO Xudong (zxdong@gmail.com)
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -455,6 +455,72 @@ Shapes.prototype.draw_star = function(pos) {
 	if(pos.strokeStyle) ctx.stroke()
 	else ctx.fill()
 	ctx.closePath()
+}
+
+//moveto target postion array
+Shapes.prototype.moveTo = function(targetArr) {
+
+}
+
+//build target postion array from text
+Shapes.prototype.buildPosArrayFromText = function(_text, _options) {
+
+	var th = this
+	,ctx = th.ctx
+	,w = th.width
+	,h = th.height
+	,text = _text
+	,options = _options || {}
+
+	,shapeSize = options.shapeSize || 20
+	,scanDistance = options.scanDistance || 5
+	,fontSize = options.fontSize || 200
+	,fontFamily = options.fontFamily || 'sans-serif'
+	,top = options.top || (h - fontSize)/2
+
+	//Supports any of the following values:
+	//start end left right center
+	ctx.textAlign = options.textAlign || 'start'
+
+	//Supports any of the following values:
+	//top hanging middle alphabetic ideographic bottom
+	ctx.textBaseline = options.textBaseline || 'middle'
+
+	th.clearShapes()
+
+	ctx.font = fontSize + 'px ' + fontFamily
+
+	ctx.fillText(text, 20, top, w - 40)
+
+	var data = ctx.getImageData(0, 0, w, h)
+
+	var dataObj = data.data
+
+	var index = 0
+
+	var arr = []
+
+	var len = Math.floor(w/scanDistance) * Math.floor(h/scanDistance)
+	for(var i = 0;i < w;i = i + scanDistance) {
+
+		for(var j = 0;j < h;j = j + scanDistance) {
+			var point = j * w + i
+			,dataPoint = dataObj[point * 4]
+			if(dataPoint) arr.push({
+				x: i
+				,y: j
+			})
+		}
+
+	}
+
+	return arr
+
+	//getImageData(float sx, float sy, float sw, float sh)
+
+	//font	string	10px sans-serif
+	//fillText(string text, float x, float y, [Optional] float maxWidth)
+	//strokeText(string text, float x, float y, [Optional] float maxWidth)
 }
 
 window.Shapes = Shapes

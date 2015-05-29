@@ -37,7 +37,7 @@ $(function() {
 
   //what shape you want draw, inside there are 'star', 'bubble', 'heart'
   //default methodsPool = ['star']
-  shapesInst.methodsPool= ['star', 'bubble', 'heart', 'light']
+  shapesInst.methodsPool= ['star', 'bubble', 'heart', 'light', 'balloon']
 
   //start animation
   shapesInst.start()

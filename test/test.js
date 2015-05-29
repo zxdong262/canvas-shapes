@@ -109,6 +109,22 @@ describe('canvas-shapes', function () {
 
 	})
 
-	
+	describe('shapes to text', function () {
+
+		it('inst.buildPosArrayFromText', function() {
+			var elm = compileDirective('default')
+			,id = elm.prop('id')
+			,inst = new Shapes('#' + id, {})
+			inst.methodsPool = ['star']
+			inst.start()
+			var data = inst.buildPosArrayFromText('t')
+			console.log(data)
+			console.log(data.length)
+
+
+			expect(inst.shapes.length).to.equal(20)
+		})
+
+	})
 
 })
