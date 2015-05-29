@@ -476,7 +476,7 @@ Shapes.prototype.buildPosArrayFromText = function(_text, _options) {
 
 	//Supports any of the following values:
 	//top hanging middle alphabetic ideographic bottom
-	ctx.textBaseline = options.textBaseline || 'middle'
+	ctx.textBaseline = options.textBaseline || 'top'
 
 	th.clearShapes()
 
