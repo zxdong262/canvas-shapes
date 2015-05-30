@@ -55,6 +55,11 @@ $(function() {
     //...
   }
 
+  //optional methods
+  //visit http://html5beta.com/apps/canvas-shapes.html for use example
+  shapesInst.buildPosArrayFromText(text, options)
+  shapesInst.moveTo(targetArr, options)
+
   //visit src/canvas-shapes.js for example
   //visit test/test.js for more example
 

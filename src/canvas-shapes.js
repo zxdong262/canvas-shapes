@@ -450,18 +450,22 @@ Shapes.prototype.draw_star = function(pos) {
 }
 
 //moveto target postion array
-Shapes.prototype.moveTo = function(_targetArr) {
+Shapes.prototype.moveTo = function(_targetArr, _options) {
 
 	var th = this
 	,shapes = th.shapes
 	,tarr = _targetArr
 	,res = []
+	,options = _options
+	,speed = options.speed
+
+	speed = (!speed || speed > 1 || speed <= 0)?0.5:speed
 
 	for(var i = 0, len = shapes.length;i < len;i ++) {
 		var pos = shapes[i]
 		,tpos = tarr[i]
-		,tx = (pos.x + tpos.x)/2
-		,ty = (pos.y + tpos.y)/2
+		,tx = (pos.x + tpos.x) * speed
+		,ty = (pos.y + tpos.y) * speed
 		res.push($.extend(pos, {
 			x: tx
 			,y: ty
