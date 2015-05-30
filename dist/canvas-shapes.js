@@ -1,6 +1,6 @@
 /**
  * canvas-shapes
- * @version v1.1.0 - 2015-05-30
+ * @version v1.1.2 - 2015-05-30
  * @link http://html5beta.com/apps/canvas-shapes.html
  * @author ZHAO Xudong (zxdong@gmail.com)
  * @license MIT License, http://www.opensource.org/licenses/MIT
