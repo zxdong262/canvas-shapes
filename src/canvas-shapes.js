@@ -487,7 +487,7 @@ Shapes.prototype.buildPosArrayFromText = function(_text, _options) {
 	,scanDistance = options.scanDistance || 5
 	,fontSize = options.fontSize || 200
 	,fontFamily = options.fontFamily || 'sans-serif'
-	,top = options.top || (h - fontSize)/2
+	,top = options.top || 20
 
 	//Supports any of the following values:
 	//start end left right center
@@ -501,7 +501,7 @@ Shapes.prototype.buildPosArrayFromText = function(_text, _options) {
 
 	ctx.font = fontSize + 'px ' + fontFamily
 	ctx.fillStyle = 'red'
-	ctx.fillText(text, 20, 20)
+	ctx.fillText(text, 20, top)
 
 	var data = ctx.getImageData(0, 0, w, h)
 
