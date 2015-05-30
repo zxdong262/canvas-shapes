@@ -71,7 +71,7 @@ gulp test
 ```
 
 ## changelog
-
+- 1.1.0 add `inst.movetTo(targetPositionArray)` function
 - 1.0.3 add balloon shape
 - 1.0.1 add light shape
 - 1.0.0 fix push/pop function, count change relatively

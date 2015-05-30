@@ -117,12 +117,8 @@ describe('canvas-shapes', function () {
 			,inst = new Shapes('#' + id, {})
 			inst.methodsPool = ['star']
 			inst.start()
-			var data = inst.buildPosArrayFromText('t')
-			console.log(data)
-			console.log(data.length)
-
-
-			expect(inst.shapes.length).to.equal(20)
+			var data = inst.buildPosArrayFromText('text')
+			expect(!!data.length).to.equal(true)
 		})
 
 	})

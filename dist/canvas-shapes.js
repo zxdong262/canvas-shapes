@@ -1,6 +1,6 @@
 /**
  * canvas-shapes
- * @version v1.0.3 - 2015-05-29
+ * @version v1.1.0 - 2015-05-30
  * @link http://html5beta.com/apps/canvas-shapes.html
  * @author ZHAO Xudong (zxdong@gmail.com)
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -458,12 +458,31 @@ Shapes.prototype.draw_star = function(pos) {
 }
 
 //moveto target postion array
-Shapes.prototype.moveTo = function(targetArr) {
+Shapes.prototype.moveTo = function(_targetArr) {
+
+	var th = this
+	,shapes = th.shapes
+	,tarr = _targetArr
+	,res = []
+
+	for(var i = 0, len = shapes.length;i < len;i ++) {
+		var pos = shapes[i]
+		,tpos = tarr[i]
+		,tx = (pos.x + tpos.x)/2
+		,ty = (pos.y + tpos.y)/2
+		res.push($.extend(pos, {
+			x: tx
+			,y: ty
+		}))
+	}
+
+	th.shapes = res
 
 }
 
 //build target postion array from text
 Shapes.prototype.buildPosArrayFromText = function(_text, _options) {
+
 
 	var th = this
 	,ctx = th.ctx
@@ -484,13 +503,13 @@ Shapes.prototype.buildPosArrayFromText = function(_text, _options) {
 
 	//Supports any of the following values:
 	//top hanging middle alphabetic ideographic bottom
-	ctx.textBaseline = options.textBaseline || 'middle'
+	ctx.textBaseline = options.textBaseline || 'top'
 
 	th.clearShapes()
 
 	ctx.font = fontSize + 'px ' + fontFamily
-
-	ctx.fillText(text, 20, top, w - 40)
+	ctx.fillStyle = 'red'
+	ctx.fillText(text, 20, 20)
 
 	var data = ctx.getImageData(0, 0, w, h)
 
@@ -501,6 +520,7 @@ Shapes.prototype.buildPosArrayFromText = function(_text, _options) {
 	var arr = []
 
 	var len = Math.floor(w/scanDistance) * Math.floor(h/scanDistance)
+
 	for(var i = 0;i < w;i = i + scanDistance) {
 
 		for(var j = 0;j < h;j = j + scanDistance) {
@@ -514,13 +534,10 @@ Shapes.prototype.buildPosArrayFromText = function(_text, _options) {
 
 	}
 
+	th.clearShapes()
+
 	return arr
 
-	//getImageData(float sx, float sy, float sw, float sh)
-
-	//font	string	10px sans-serif
-	//fillText(string text, float x, float y, [Optional] float maxWidth)
-	//strokeText(string text, float x, float y, [Optional] float maxWidth)
 }
 
 window.Shapes = Shapes
