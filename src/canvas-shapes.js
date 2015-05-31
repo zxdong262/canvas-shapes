@@ -456,7 +456,7 @@ Shapes.prototype.moveTo = function(_targetArr, _options) {
 	,shapes = th.shapes
 	,tarr = _targetArr
 	,res = []
-	,options = _options
+	,options = _options || {}
 	,speed = options.speed
 
 	speed = (!speed || speed > 1 || speed <= 0)?0.5:speed

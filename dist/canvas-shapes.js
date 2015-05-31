@@ -1,6 +1,6 @@
 /**
  * canvas-shapes
- * @version v1.1.4 - 2015-05-30
+ * @version v1.1.5 - 2015-05-31
  * @link http://html5beta.com/apps/canvas-shapes.html
  * @author ZHAO Xudong (zxdong@gmail.com)
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -464,7 +464,7 @@ Shapes.prototype.moveTo = function(_targetArr, _options) {
 	,shapes = th.shapes
 	,tarr = _targetArr
 	,res = []
-	,options = _options
+	,options = _options || {}
 	,speed = options.speed
 
 	speed = (!speed || speed > 1 || speed <= 0)?0.5:speed
