@@ -9,7 +9,7 @@ only support >=ie9
 
 ## get
 ```bash
-bower install canvas-shapes
+npm install canvas-shapes
 ```
 
 ## use
